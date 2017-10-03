@@ -1,0 +1,127 @@
+<div class="bar bar-header dasboard-header">
+    <button class="button icon ion-navicon-round none-background" menu-toggle="left"></button>
+    <h1 class="title"><img src="img/instafeed-logo.png" alt=""></h1>
+
+    <button class="button icon ion-ios-search-strong search-icon fixed-icon" ng-click="addClass()"></button>
+    <a class="button none-background" ng-click="checkuploadlogin()" name="newsupload"><img src="img/upload.png" alt=""></a>
+
+</div>
+
+<div class="bar bar-header item-input-inset top-search">
+    <label class="item-input-wrapper">
+        <i class="icon ion-ios-search placeholder-icon"></i>
+        <form ng-submit="opensearchf()">
+         <input type="search" placeholder="Search" ng-model="searchquerydata">
+         </form>
+    </label>
+    <button class="button none-background button-clear button-assertive" ng-click="removeClass()">
+        Cancel
+    </button>
+</div>
+
+<ion-scroll direction="x" class="scroll-tabs">
+    <ul>
+        <li>
+            <a href="#/app/newslisting" name="newslisting">News</a>
+        </li>
+        <li>
+            <a href="#/app/talentslisting" name="talentslisting">Talents</a>
+        </li>
+        <li>
+            <a href="#/app/explorelisting" name="explorelisting">Explorer</a>
+        </li>
+        <li>
+            <a href="#/app/opinionlisting" name="">Opinions</a>
+        </li>
+        <li class="active">
+            <a href="#/app/petitionslisting" name="petitionslisting">Petitions</a>
+        </li>
+        <li>
+            <a href="#/app/pollslisting" name="pollslisting">Polls</a>
+        </li>
+        <li>
+            <a href="#/app/bloglisting" name="">Blogs</a>
+        </li>
+    </ul>
+</ion-scroll>
+
+<script>
+$( document ).ready(function() {
+  $( ".scroll-tabs" ).scrollLeft( 100 );
+});
+
+</script>
+
+<div ng-class="class" ng-controller="PlaylistCtrl">
+    <a ng-click="captureAudio(2)" class="nav-item nav-count-1"><i class="icon ion-mic-a"></i><span class="invisible">Audio</span></a>
+    <a ng-click="getImageSaveContact(2)" class="nav-item nav-count-2"><i class="icon ion-image"></i><span class="invisible">Gallery</span></a>
+    <a ng-click="captureVideo(2)" class="nav-item nav-count-3"><i class="icon ion-ios-videocam"></i><span class="invisible">Video</span></a>
+    <a ng-click="takePicture(2)" class="nav-item nav-count-4"><i class="icon ion-camera"></i><span class="invisible">Camera</span></a>
+    <a ng-click="changeClass()" class="mask"><img src="img/circul-plus_64.png"></a>
+</div>
+<div ng-class="classs"></div>
+
+<ion-content class="has-subheader pettion-listing" on-swipe-right="onSwipe('opinion')" on-swipe-left="onSwipe('poll')">
+
+  <ion-refresher pulling-text="Pull to refresh" on-refresh="doPetitionsRefresh()">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+<ion-slides class="news-dt-slider"  options="options" slider="data.slider" ng-click="petitionDetailPage(petitiondata[0].id)" >
+    <div class="outer">
+        <div ng-hide="petitiondata[0].image" class="inner icon-not-available">
+        </div>
+        <div ng-if="petitiondata[0].image" class="inner">
+            <img src="{{petitiondata[0].image}}" alt="">
+        </div>
+    </div>
+</ion-slides >
+    <div class="blog-first" >
+        <div class="description padding">
+            <div class="user-details" >
+              <div ng-hide="petitiondata[0].avatar" class="profile-icon" >
+                  <img src="img/avatar-50.jpg" alt="">
+              </div>
+              <div ng-if="petitiondata[0].avatar" class="profile-icon">
+                  <img src="{{petitiondata[0].avatar}}" alt="">
+              </div>
+
+              <div class="user-name">
+                  <span>{{petitiondata[0].first_name}} {{petitiondata[0].last_name}}</span>
+              </div>
+
+              <div class="upload-time">
+                  <span>{{formatDate(petitiondata[0].dt_added)  | date: 'MMMM dd, y'}}</span>
+              </div>
+            </div>
+
+            <a ng-click="petitionDetailPage(petitiondata[0].id)" name="petitiondetail">
+                <div class="title">
+                    <h2>{{(petitiondata[0].title | limitTo: 120) + (petitiondata[0].title > 120 ? '...' : '')}}</h2>
+                </div>
+            </a>
+        </div>
+    </div>
+
+
+
+    <div class="list mypost-listing petition-listing">
+
+        <div class="item item-thumbnail-left" ng-repeat="m in petitionitems">
+          <a  name="petitiondetail" class="img-icon">
+            <img ng-if="petitiondata[$index+1].image" src="{{petitiondata[$index+1].image}}">
+            <img ng-hide="petitiondata[$index+1].image" src="img/icon-not-available.png">
+          </a>
+            <p class="time"><a class="font1-2em">{{petitiondata[$index+1].first_name}} {{petitiondata[$index+1].last_name}}</a>, {{formatDate(petitiondata[$index+1].dt_added)  | date: 'MMMM dd y'}}</p>
+            <a ng-click="petitionDetailPage(petitiondata[$index+1].id)" name="petitiondetail">
+            <h2>{{(petitiondata[$index+1].title | limitTo: 50) + (petitiondata[$index+1].title.length > 50 ? '...' : '')}}</h2>
+            <p>{{(petitiondata[$index+1].short_description | limitTo: 80) + (petitiondata[$index+1].short_description.length > 80 ? '...' : '')}}</p>
+          </a>
+        </div>
+
+    </div>
+    <ion-infinite-scroll ng-if="!noMorePetitionItemsAvailable" on-infinite="loadMorePetitions()" distance="10%" use-content="true">
+    <!-- <ion-spinner ng-show="loadingMoreItems" icon="ios" class="spinner spinner-ios my-spinner"> -->
+    </ion-infinite-scroll>
+
+</ion-content>
