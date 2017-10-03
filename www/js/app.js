@@ -20,6 +20,22 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+	  
+	   if (window.StatusBar) {
+      // org.apache.cordova.statusbar required
+      StatusBar.styleDefault();
+    }
+	  
+	  
+	   if (window.StatusBar) {
+      // org.apache.cordova.statusbar required
+      StatusBar.styleDefault();
+    }
+	  
+	   if (window.StatusBar) {
+      // org.apache.cordova.statusbar required
+      StatusBar.styleDefault();
+    }
 	document.addEventListener("deviceready", function onDeviceReady(w) {
     // Should work on Andriod
     if(StatusBar && statusbarTransparent) {
@@ -34,9 +50,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         // Get the bar back
         StatusBar.show();
     }
+		
+		 else if (StatusBar) {
+        // Get the bar back
+        StatusBar.show();
+    }
 }, false);
   });
 })
+
+
 
 .config(function($stateProvider, $urlRouterProvider) {
 

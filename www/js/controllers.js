@@ -18,6 +18,10 @@ angular.module('starter.controllers', [])
    $scope.nextSlide = function() {
     $ionicSlideBoxDelegate.next();
   };
+  
+   $scope.nextSlide = function() {
+    $ionicSlideBoxDelegate.next();
+  };
 })
 
 .controller('chats1Ctrl', function($scope, Chats, $ionicSlideBoxDelegate,$window) {
@@ -33,6 +37,14 @@ angular.module('starter.controllers', [])
   $scope.remove = function(chat) {
     Chats.remove(chat);
   };
+   $scope.nextSlide = function() {
+    $ionicSlideBoxDelegate.next();
+  };
+  
+   $scope.nextSlide = function() {
+    $ionicSlideBoxDelegate.next();
+  };
+  
    $scope.nextSlide = function() {
     $ionicSlideBoxDelegate.next();
   };
